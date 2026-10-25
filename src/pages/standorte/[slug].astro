@@ -1,0 +1,108 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import TopicCard from "../../components/TopicCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { company, locations, services, type Location } from "../../data/site";
+
+export function getStaticPaths() {
+  return locations.map((location) => ({ params: { slug: location.slug }, props: { location } }));
+}
+
+const { location: l } = Astro.props as { location: Location };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: `${company.name} ${l.city}`,
+  image: new URL("/og-image.jpg", Astro.site).href,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  telephone: l.phone.href.replace("tel:", ""),
+  email: l.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: l.street,
+    postalCode: l.zip,
+    addressLocality: l.city,
+    addressCountry: "DE",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: l.geo.lat, longitude: l.geo.lng },
+  areaServed: l.areas,
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "06:00", closes: "20:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "07:00", closes: "14:00" },
+  ],
+  parentOrganization: { "@type": "Organization", name: company.legalName },
+};
+---
+
+<Base
+  title={`Krankenfahrdienst ${l.city}`}
+  description={`PULS Krankenfahrdienst ${l.city}: Krankenfahrten sitzend, im Rollstuhl, Tragestuhl oder liegend in ${l.areas.slice(0, 4).join(", ")} und Umgebung. Tel. ${l.phone.label}.`}
+  jsonLd={jsonLd}
+>
+  <PageHero
+    eyebrow={`Standort · ${l.role}`}
+    title={`Krankenfahrdienst ${l.city}`}
+    lead={l.intro}
+    crumbs={[{ label: "Standorte", href: "/standorte/" }]}
+  >
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href={l.phone.href}><Icon name="phone" class="icon icon-sm" />{l.phone.label}</a>
+      <a class="btn btn-outline" href="/fahrt-anfragen/">Online anfragen</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split top">
+      <div class="reveal" data-reveal="left">
+        <h2>Kontakt & Erreichbarkeit</h2>
+        <ul class="contact-list">
+          <li><Icon name="pin" class="icon icon-sm" /><span>{company.name} {l.city}<br />{l.street}<br />{l.zip} {l.city}</span></li>
+          <li><Icon name="phone" class="icon icon-sm" /><a href={l.phone.href}>{l.phone.label}</a></li>
+          <li><Icon name="mail" class="icon icon-sm" /><a href={`mailto:${l.email}`}>{l.email}</a></li>
+        </ul>
+        <h3>Disposition</h3>
+        <dl class="hours">
+          {company.dispatchHours.map((h) => <div><dt>{h.days}</dt><dd>{h.time}</dd></div>)}
+        </dl>
+        <p class="muted">Betrieben von {l.operator}{l.role === "Franchisepartner" ? " als selbstständiger PULS-Franchisepartner" : ""}.</p>
+      </div>
+      <div class="stack reveal" data-reveal="right">
+        <div class="notice notice-dark">
+          <strong>Einsatzgebiet</strong>
+          <ul class="tag-list">{l.areas.map((a) => <li>{a}</li>)}</ul>
+          <p class="muted">Fernfahrten zu Reha-Kliniken und Flughäfen auf Anfrage.</p>
+        </div>
+        <div class="notice notice-dark">
+          <strong>Wir fahren u. a. zu</strong>
+          <ul class="check-list">{l.destinations.map((d) => <li>{d}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label={`PULS ${l.city} in Zahlen`}>
+    <div class="container stats-grid">
+      <div class="stat reveal"><span class="stat-value">{l.opened}</span><span class="stat-label">gegründet</span></div>
+      <div class="stat reveal" style="--d: 1"><span class="stat-value"><span data-count={l.vehicles}>{l.vehicles}</span></span><span class="stat-label">Fahrzeuge</span></div>
+      <div class="stat reveal" style="--d: 2"><span class="stat-value"><span data-count={l.areas.length}>{l.areas.length}</span></span><span class="stat-label">Orte im Einsatzgebiet</span></div>
+      <div class="stat reveal" style="--d: 3"><span class="stat-value">6–20</span><span class="stat-label">Uhr Disposition (Mo–Fr)</span></div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Leistungen in {l.city}</p>
+        <h2>Unsere Fahrten vor Ort</h2>
+      </div>
+      <div class="grid">
+        {services.map((s, i) => <TopicCard topic={s} href={`/leistungen/${s.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Krankenfahrt in ${l.city} buchen`} />
+</Base>

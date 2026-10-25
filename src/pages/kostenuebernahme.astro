@@ -1,0 +1,102 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { steps } from "../data/site";
+---
+
+<Base
+  title="Kostenübernahme & Transportschein"
+  description="Wann zahlt die Krankenkasse die Krankenfahrt? Verordnung (Muster 4), Genehmigung, Zuzahlung und Ausnahmen verständlich erklärt – PULS rechnet direkt mit der Kasse ab."
+>
+  <PageHero
+    eyebrow="Kostenübernahme"
+    title="Transportschein verständlich erklärt"
+    lead="Wann zahlt die Krankenkasse, welche Unterlagen brauchen Sie und wie hoch ist Ihre Zuzahlung? Hier finden Sie die wichtigsten Antworten."
+  />
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ablauf</p>
+        <h2>So kommen Sie zu Ihrer Krankenfahrt</h2>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => <li class="reveal" style={`--d: ${i}`}><h3>{s.title}</h3><p>{s.text}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split top">
+      <div class="prose reveal" data-reveal="left">
+        <h2>Wann übernimmt die Krankenkasse die Kosten?</h2>
+        <p class="muted">
+          Grundlage ist § 60 SGB V und die Krankentransport-Richtlinie des Gemeinsamen Bundesausschusses. Voraussetzung ist immer eine
+          ärztliche Verordnung einer Krankenbeförderung (Muster 4), die vor der Fahrt ausgestellt wird.
+        </p>
+
+        <h3>Ohne gesonderte Genehmigung</h3>
+        <ul class="check-list">
+          <li>Fahrten zur stationären Behandlung (Aufnahme, Entlassung)</li>
+          <li>Verlegungen zwischen Krankenhäusern</li>
+          <li>Fahrten zu vor- oder nachstationärer Behandlung, wenn dadurch ein Klinikaufenthalt vermieden oder verkürzt wird</li>
+          <li>Fahrten zu ambulanten Operationen im Krankenhaus oder in der Praxis</li>
+        </ul>
+
+        <h3>Mit Genehmigung der Krankenkasse</h3>
+        <ul class="check-list">
+          <li>Dialyse, onkologische Chemotherapie und Strahlentherapie (hochfrequente Behandlungen)</li>
+          <li>Fahrten zu ambulanten Behandlungen bei vergleichbar schwerer Erkrankung</li>
+        </ul>
+
+        <h3>Gilt automatisch als genehmigt</h3>
+        <p class="muted">Fahrten zu ambulanten Behandlungen gelten mit der Verordnung als genehmigt, wenn Sie</p>
+        <ul class="check-list">
+          <li>einen Schwerbehindertenausweis mit Merkzeichen aG, Bl oder H haben,</li>
+          <li>in Pflegegrad 3 mit dauerhafter Mobilitätsbeeinträchtigung oder</li>
+          <li>in Pflegegrad 4 oder 5 eingestuft sind.</li>
+        </ul>
+
+        <h2>Wie hoch ist die Zuzahlung?</h2>
+        <p class="muted">
+          Gesetzlich Versicherte zahlen 10 % der Fahrtkosten, mindestens 5 € und höchstens 10 € je Fahrt – aber nie mehr als die
+          tatsächlichen Kosten. Haben Sie Ihre Belastungsgrenze (2 % bzw. 1 % bei chronischer Erkrankung des Jahresbruttoeinkommens)
+          erreicht, können Sie sich von der Zuzahlung befreien lassen.
+        </p>
+
+        <h2>Privatversichert oder Selbstzahler?</h2>
+        <p class="muted">
+          Privatversicherte erhalten eine Rechnung zur Einreichung bei Versicherung oder Beihilfe. Für Privatfahrten ohne Verordnung
+          nennen wir Ihnen vorab einen verbindlichen Festpreis.
+        </p>
+      </div>
+
+      <aside class="stack reveal" data-reveal="right">
+        <div class="notice">
+          <strong>Das bringen Sie mit</strong>
+          <ul class="check-list">
+            <li>Verordnung (Muster 4) im Original</li>
+            <li>Genehmigung der Krankenkasse, falls nötig</li>
+            <li>Versichertenkarte</li>
+            <li>Befreiungsausweis, falls vorhanden</li>
+          </ul>
+        </div>
+        <div class="notice notice-dark">
+          <strong>Wir helfen gern</strong>
+          <p class="muted">Unsicher, ob Ihre Fahrt genehmigt werden muss? Rufen Sie uns an – wir erklären Ihnen die nächsten Schritte.</p>
+          <a class="text-link" href="/fahrt-anfragen/#transportschein">Fahrt mit Transportschein anfragen →</a>
+        </div>
+        <div class="notice notice-dark">
+          <strong>Hinweis</strong>
+          <p class="muted">
+            Diese Informationen ersetzen keine Beratung durch Ihre Krankenkasse. Die verbindliche Entscheidung über die Kostenübernahme
+            trifft Ihre Kasse.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

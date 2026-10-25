@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import TopicCard from "../../components/TopicCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { services, transportTypes } from "../../data/site";
+---
+
+<Base
+  title="Leistungen"
+  description="Arztfahrten, Dialyse-, Chemotherapie- und Bestrahlungsfahrten, Krankenhaus- und Rehafahrten, Flughafentransfer und Freizeitfahrten – alle Leistungen von PULS Krankenfahrdienst."
+>
+  <PageHero
+    eyebrow="Leistungen"
+    title="Unsere Leistungen im Überblick"
+    lead="Wir fahren Sie zu Behandlungen, in die Klinik, zur Reha – und auch zu den schönen Dingen im Leben. Alle Fahrten sind sitzend, im Rollstuhl, im Tragestuhl oder liegend möglich."
+  />
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="grid">
+        {services.map((s, i) => <TopicCard topic={s} href={`/leistungen/${s.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Beförderungsarten</p>
+        <h2>Für jede Mobilitätssituation</h2>
+      </div>
+      <div class="grid">
+        {transportTypes.map((t, i) => <TopicCard topic={t} href={`/befoerderungsarten/${t.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

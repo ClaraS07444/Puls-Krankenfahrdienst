@@ -1,0 +1,63 @@
+---
+import Logo from "./Logo.astro";
+import { company, locations, services, transportTypes } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo width={170} />
+      <p>{company.slogan} Krankenfahrten in Aachen, Köln und Frankfurt am Main.</p>
+      <ul class="footer-social">
+        {company.social.map((s) => <li><a href={s.href} rel="noopener">{s.label}</a></li>)}
+      </ul>
+    </div>
+
+    <nav aria-label="Leistungen">
+      <h2 class="footer-title">Leistungen</h2>
+      <ul>
+        {services.slice(0, 6).map((s) => <li><a href={`/leistungen/${s.slug}/`}>{s.title}</a></li>)}
+        {transportTypes.slice(1, 2).map((t) => <li><a href={`/befoerderungsarten/${t.slug}/`}>{t.title}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Unternehmen">
+      <h2 class="footer-title">Unternehmen</h2>
+      <ul>
+        <li><a href="/ueber-uns/">Über uns</a></li>
+        <li><a href="/fuhrpark/">Fuhrpark</a></li>
+        <li><a href="/kostenuebernahme/">Kostenübernahme</a></li>
+        <li><a href="/karriere/">Karriere</a></li>
+        <li><a href="/franchise/">Franchise</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer-title">Standorte</h2>
+      <ul class="footer-locations">
+        {
+          locations.map((l) => (
+            <li>
+              <a href={`/standorte/${l.slug}/`}>{l.city}</a>
+              <a class="footer-phone" href={l.phone.href}>{l.phone.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© {year} {company.legalName}</p>
+    <nav aria-label="Rechtliches">
+      <ul>
+        <li><a href="/impressum/">Impressum</a></li>
+        <li><a href="/datenschutz/">Datenschutz</a></li>
+        <li><a href="/agb/">AGB</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>

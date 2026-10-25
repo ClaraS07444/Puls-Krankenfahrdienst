@@ -1,0 +1,20 @@
+---
+import Base from "./Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <PageHero eyebrow="Rechtliches" title={title} />
+  <section class="section">
+    <div class="container prose">
+      <slot />
+    </div>
+  </section>
+</Base>

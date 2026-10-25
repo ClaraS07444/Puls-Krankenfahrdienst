@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { company, locations } from "../data/site";
+---
+
+<Base
+  title="Kontakt"
+  description="Kontakt zu PULS Krankenfahrdienst: Telefon, E-Mail und Adressen unserer Standorte in Aachen, Köln und Frankfurt am Main sowie Erreichbarkeit der Disposition."
+>
+  <PageHero
+    eyebrow="Kontakt"
+    title="Wir sind für Sie da"
+    lead="Am schnellsten erreichen Sie uns telefonisch über die Disposition Ihres Standorts. Für planbare Fahrten können Sie uns auch online schreiben."
+  >
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href={company.hotline.href}><Icon name="phone" class="icon icon-sm" />{company.hotline.label}</a>
+      <a class="btn btn-outline" href="/fahrt-anfragen/">Fahrt online anfragen</a>
+    </div>
+  </PageHero>
+
+  <section class="section section-ink">
+    <div class="container grid grid-3">
+      {
+        locations.map((l, i) => (
+          <article class="card card-dark location-card reveal" style={`--d: ${i}`}>
+            <span class="role">{l.role}</span>
+            <h2>{company.name} {l.city}</h2>
+            <ul class="contact-list">
+              <li><Icon name="pin" class="icon icon-sm" /><span>{l.street}<br />{l.zip} {l.city}</span></li>
+              <li><Icon name="phone" class="icon icon-sm" /><a href={l.phone.href}>{l.phone.label}</a></li>
+              <li><Icon name="mail" class="icon icon-sm" /><a href={`mailto:${l.email}`}>{l.email}</a></li>
+            </ul>
+            <p><a class="text-link" href={`/standorte/${l.slug}/`}>Einsatzgebiet ansehen →</a></p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split top">
+      <div class="reveal" data-reveal="left">
+        <h2>Erreichbarkeit der Disposition</h2>
+        <dl class="hours">
+          {company.dispatchHours.map((h) => <div><dt>{h.days}</dt><dd>{h.time}</dd></div>)}
+        </dl>
+        <p class="muted">
+          Allgemeine Anfragen: <a class="text-link" href={`mailto:${company.email}`}>{company.email}</a><br />
+          Bitte senden Sie keine Gesundheitsdaten per unverschlüsselter E-Mail.
+        </p>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Kein Notfalldienst</strong>
+        <p class="muted">
+          Bei akuten medizinischen Notfällen wählen Sie bitte <strong>112</strong>. Den ärztlichen Bereitschaftsdienst erreichen Sie unter
+          <strong>116 117</strong>.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Base>

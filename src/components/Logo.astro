@@ -1,0 +1,21 @@
+---
+interface Props {
+  class?: string;
+  width?: number;
+  eager?: boolean;
+}
+
+const { class: className, width = 160, eager = false } = Astro.props;
+// Aspect ratio of public/logo.svg viewBox (1265 × 650).
+const height = Math.round((width * 650) / 1265);
+---
+
+<img
+  class={className}
+  src="/logo.svg"
+  alt="PULS Krankenfahrdienst"
+  width={width}
+  height={height}
+  loading={eager ? "eager" : "lazy"}
+  decoding="async"
+/>

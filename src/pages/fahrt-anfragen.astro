@@ -1,0 +1,211 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { company, fleet, locations } from "../data/site";
+---
+
+<Base
+  title="Fahrt anfragen"
+  description="Krankenfahrt online anfragen: private Fahrt oder Fahrt mit Transportschein. PULS prüft Verfügbarkeit und bestätigt Ihre Fahrt persönlich."
+>
+  <PageHero
+    eyebrow="Fahrt anfragen"
+    title="Krankenfahrt anfragen"
+    lead="Wählen Sie, ob Sie privat fahren oder einen Transportschein haben. Wir prüfen Ihre Anfrage und bestätigen die Fahrt persönlich – erst dann ist sie verbindlich."
+  >
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href="#private-anfrage">Private Fahrt</a>
+      <a class="btn btn-outline" href="#transportschein">Mit Transportschein</a>
+      <a class="btn btn-outline" href={company.hotline.href}><Icon name="phone" class="icon icon-sm" />{company.hotline.label}</a>
+    </div>
+  </PageHero>
+
+  <section class="section section-light">
+    <div class="container">
+      <p class="form-hint">Pflichtfelder sind mit * markiert. Bitte senden Sie nur die Gesundheitsangaben, die für die Fahrt nötig sind.</p>
+
+      <form class="request-form" id="private-anfrage" data-validate novalidate aria-labelledby="private-title">
+        <h2 class="form-title" id="private-title">Private Fahrt</h2>
+        <p class="form-hint">Für Fahrten ohne Verordnung, z. B. Flughafentransfer oder Freizeitfahrt. Sie erhalten vorab einen Festpreis.</p>
+        <div class="form-errors" hidden tabindex="-1"></div>
+
+        <fieldset>
+          <legend>Kontaktdaten</legend>
+          <div class="form-grid">
+            <label><span class="label-text">Vorname *</span><input name="firstName" autocomplete="given-name" required minlength="2" maxlength="60" /></label>
+            <label><span class="label-text">Nachname *</span><input name="lastName" autocomplete="family-name" required minlength="2" maxlength="80" /></label>
+            <label><span class="label-text">Telefonnummer *</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9() /\-]{6,30}" required /></label>
+            <label><span class="label-text">E-Mail</span><input name="email" type="email" autocomplete="email" /></label>
+          </div>
+          <fieldset class="radio-group">
+            <legend>Bevorzugter Kontaktweg *</legend>
+            <label><input type="radio" name="contact" value="Telefon" required /> Telefon</label>
+            <label><input type="radio" name="contact" value="E-Mail" /> E-Mail</label>
+          </fieldset>
+        </fieldset>
+
+        <fieldset>
+          <legend>Fahrtdaten</legend>
+          <div class="form-grid">
+            <label>
+              <span class="label-text">Standort *</span>
+              <select name="location" required>
+                <option value="">Bitte wählen</option>
+                {locations.map((l) => <option>{l.city}</option>)}
+              </select>
+            </label>
+            <label><span class="label-text">Personenanzahl *</span><input name="passengers" type="number" min="1" max="8" value="1" required /></label>
+            <label><span class="label-text">Abholadresse *</span><input name="pickup" autocomplete="street-address" required maxlength="160" /></label>
+            <label><span class="label-text">Zieladresse *</span><input name="destination" required maxlength="160" /></label>
+            <label><span class="label-text">Datum *</span><input name="date" type="date" required /></label>
+            <label><span class="label-text">Abholzeit *</span><input name="time" type="time" required /></label>
+            <label>
+              <span class="label-text">Fahrzeugwunsch</span>
+              <select name="vehicle">
+                <option value="">Keine Auswahl</option>
+                {fleet.map((v) => <option>{v.name}</option>)}
+              </select>
+            </label>
+            <label>
+              <span class="label-text">Mobilität *</span>
+              <select name="mobility" required>
+                <option value="">Bitte wählen</option>
+                <option>Gehfähig, keine Hilfe</option>
+                <option>Rollator</option>
+                <option>Rollstuhl (bleibt sitzen)</option>
+                <option>Tragestuhl nötig</option>
+                <option>Liegend</option>
+              </select>
+            </label>
+          </div>
+          <fieldset class="radio-group">
+            <legend>Rückfahrt benötigt? *</legend>
+            <label><input type="radio" name="returnTrip" value="Ja" required /> Ja</label>
+            <label><input type="radio" name="returnTrip" value="Nein" /> Nein</label>
+          </fieldset>
+          <div class="form-grid return-fields" data-return-fields hidden>
+            <label><span class="label-text">Datum Rückfahrt *</span><input name="returnDate" type="date" /></label>
+            <label><span class="label-text">Uhrzeit Rückfahrt *</span><input name="returnTime" type="time" /></label>
+          </div>
+        </fieldset>
+
+        <label><span class="label-text">Hinweise</span><textarea name="notes" maxlength="1000" placeholder="z. B. Etage, Aufzug, Gepäck"></textarea></label>
+
+        <div class="checks">
+          <label><input type="checkbox" required /><span>Ich habe die <a href="/datenschutz/">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Anfrage zu. *</span></label>
+          <label><input type="checkbox" required /><span>Mir ist bekannt, dass die Fahrt erst nach persönlicher Bestätigung verbindlich ist. *</span></label>
+        </div>
+        <button class="btn" type="submit">Private Anfrage senden</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <form class="request-form" id="transportschein" data-validate novalidate aria-labelledby="ts-title">
+        <h2 class="form-title" id="ts-title">Fahrt mit Transportschein</h2>
+        <p class="form-hint">Für Fahrten mit ärztlicher Verordnung (Muster 4). Wir rechnen direkt mit Ihrer Krankenkasse ab.</p>
+        <div class="form-errors" hidden tabindex="-1"></div>
+
+        <fieldset>
+          <legend>Fahrgast & Kontakt</legend>
+          <div class="form-grid">
+            <label><span class="label-text">Vorname *</span><input name="firstName" autocomplete="given-name" required minlength="2" maxlength="60" /></label>
+            <label><span class="label-text">Nachname *</span><input name="lastName" autocomplete="family-name" required minlength="2" maxlength="80" /></label>
+            <label><span class="label-text">Geburtsdatum *</span><input name="birthDate" type="date" data-past required /></label>
+            <label><span class="label-text">Krankenkasse *</span><input name="insurance" required maxlength="80" /></label>
+            <label><span class="label-text">Telefonnummer *</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9() /\-]{6,30}" required /></label>
+            <label><span class="label-text">E-Mail</span><input name="email" type="email" autocomplete="email" /></label>
+            <label>
+              <span class="label-text">Anfrage durch *</span>
+              <select name="requester" required>
+                <option value="">Bitte wählen</option>
+                <option>Fahrgast selbst</option>
+                <option>Angehörige</option>
+                <option>Pflegedienst / Einrichtung</option>
+                <option>Klinik / Praxis</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Fahrtdaten</legend>
+          <div class="form-grid">
+            <label>
+              <span class="label-text">Standort *</span>
+              <select name="location" required>
+                <option value="">Bitte wählen</option>
+                {locations.map((l) => <option>{l.city}</option>)}
+              </select>
+            </label>
+            <label>
+              <span class="label-text">Fahrtgrund *</span>
+              <select name="reason" required>
+                <option value="">Bitte wählen</option>
+                <option>Arzt / ambulante Behandlung</option>
+                <option>Dialyse</option>
+                <option>Chemotherapie</option>
+                <option>Strahlentherapie</option>
+                <option>Krankenhaus (Aufnahme / Entlassung)</option>
+                <option>Reha</option>
+                <option>Sonstiges</option>
+              </select>
+            </label>
+            <label><span class="label-text">Termin-/Abholdatum *</span><input name="date" type="date" required /></label>
+            <label><span class="label-text">Terminzeit *</span><input name="time" type="time" required /></label>
+            <label><span class="label-text">Abholadresse *</span><input name="pickup" required maxlength="160" /></label>
+            <label><span class="label-text">Zieladresse *</span><input name="destination" required maxlength="160" /></label>
+            <label>
+              <span class="label-text">Fahrtumfang *</span>
+              <select name="scope" required>
+                <option value="">Bitte wählen</option>
+                <option>Nur Hinfahrt</option>
+                <option>Hin- und Rückfahrt</option>
+                <option>Serienfahrt</option>
+              </select>
+            </label>
+            <label>
+              <span class="label-text">Beförderungsart laut Verordnung *</span>
+              <select name="mobility" required>
+                <option value="">Bitte wählen</option>
+                <option>Sitzend</option>
+                <option>Rollstuhl</option>
+                <option>Tragestuhl</option>
+                <option>Liegend</option>
+                <option>Noch unklar</option>
+              </select>
+            </label>
+            <label>
+              <span class="label-text">Verordnung (Muster 4) *</span>
+              <select name="prescriptionStatus" required>
+                <option value="">Bitte wählen</option>
+                <option>Liegt vor</option>
+                <option>Wird ausgestellt</option>
+                <option>Noch unklar</option>
+              </select>
+            </label>
+            <label>
+              <span class="label-text">Genehmigung Krankenkasse *</span>
+              <select name="approval" required>
+                <option value="">Bitte wählen</option>
+                <option>Liegt vor</option>
+                <option>Beantragt</option>
+                <option>Nicht erforderlich oder unklar</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="checks">
+          <label><input type="checkbox" required /><span>Ich habe die <a href="/datenschutz/">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung meiner Gesundheitsdaten für diese Anfrage ein (Art. 9 Abs. 2 lit. a DSGVO). *</span></label>
+          <label><input type="checkbox" required /><span>Mir ist bekannt, dass keine automatische Fahrt- oder Kostenbestätigung erfolgt. *</span></label>
+        </div>
+        <button class="btn" type="submit">Transportschein-Anfrage senden</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import "../scripts/forms";
+</script>

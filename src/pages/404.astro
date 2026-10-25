@@ -1,0 +1,14 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Base title="Seite nicht gefunden" description="Die angeforderte Seite wurde nicht gefunden.">
+  <PageHero eyebrow="Fehler 404" title="Diese Seite gibt es leider nicht" lead="Vielleicht wurde sie verschoben. Hier geht es weiter:">
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href="/">Zur Startseite</a>
+      <a class="btn btn-outline" href="/leistungen/">Leistungen</a>
+      <a class="btn btn-outline" href="/kontakt/">Kontakt</a>
+    </div>
+  </PageHero>
+</Base>

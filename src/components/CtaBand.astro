@@ -1,0 +1,30 @@
+---
+import Icon from "./Icon.astro";
+import { company } from "../data/site";
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = "Fahrt planen? Wir sind für Sie da.",
+  text = "Rufen Sie unsere Disposition an oder schicken Sie uns Ihre Anfrage online. Wir melden uns schnell mit einer Bestätigung.",
+} = Astro.props;
+---
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="container cta-inner reveal" data-reveal="zoom">
+    <div>
+      <h2 id="cta-title">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="button-row">
+      <a class="btn btn-light" href={company.hotline.href}>
+        <Icon name="phone" class="icon icon-sm" />
+        {company.hotline.label}
+      </a>
+      <a class="btn btn-outline" href="/fahrt-anfragen/">Online anfragen</a>
+    </div>
+  </div>
+</section>

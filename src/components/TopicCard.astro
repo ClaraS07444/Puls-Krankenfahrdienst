@@ -1,0 +1,19 @@
+---
+import Icon from "./Icon.astro";
+import type { Topic } from "../data/site";
+
+interface Props {
+  topic: Topic;
+  href: string;
+  index?: number;
+}
+
+const { topic, href, index = 0 } = Astro.props;
+---
+
+<article class="card topic-card reveal" style={`--d: ${index % 4}`}>
+  <Icon name={topic.icon} class="icon icon-lg" />
+  <h3><a class="card-link" href={href}>{topic.title}</a></h3>
+  <p>{topic.short}</p>
+  <span class="more" aria-hidden="true">Mehr erfahren <span>→</span></span>
+</article>

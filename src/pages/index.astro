@@ -1,0 +1,258 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Logo from "../components/Logo.astro";
+import Icon from "../components/Icon.astro";
+import Stats from "../components/Stats.astro";
+import TopicCard from "../components/TopicCard.astro";
+import VehicleCard from "../components/VehicleCard.astro";
+import FaqList from "../components/FaqList.astro";
+import CtaBand from "../components/CtaBand.astro";
+import banner from "../assets/puls-banner.jpg";
+import { company, services, transportTypes, fleet, locations, faqs, steps } from "../data/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: company.name,
+  legalName: company.legalName,
+  url: Astro.site?.href,
+  logo: new URL("/logo.svg", Astro.site).href,
+  email: company.email,
+  telephone: company.hotline.href.replace("tel:", ""),
+  foundingDate: String(company.founded),
+  slogan: company.slogan,
+  location: locations.map((l) => ({
+    "@type": "Place",
+    name: `${company.name} ${l.city}`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: l.street,
+      postalCode: l.zip,
+      addressLocality: l.city,
+      addressCountry: "DE",
+    },
+  })),
+};
+---
+
+<Base
+  title="PULS Krankenfahrdienst | Krankenfahrten in Aachen, Köln & Frankfurt"
+  description="PULS Krankenfahrdienst: Krankenfahrten sitzend, im Rollstuhl, Tragestuhl oder liegend. Dialyse-, Chemo- und Arztfahrten mit direkter Abrechnung mit der Krankenkasse – in Aachen, Köln und Frankfurt."
+  jsonLd={jsonLd}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-bg">
+      <Picture
+        src={banner}
+        alt=""
+        formats={["avif", "webp"]}
+        widths={[640, 960, 1280, 1568]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <Logo class="hero-logo fly-in" width={400} eager />
+      <h1 id="hero-title" class="fly-in" style="--d: 1"><span>Mit Herz</span> unterwegs.</h1>
+      <p class="hero-lead fly-in" style="--d: 2">
+        Ihr Krankenfahrdienst für Arzt-, Klinik-, Dialyse- und Therapiefahrten – sitzend, im Rollstuhl oder liegend. Jetzt in
+        Aachen, Köln und Frankfurt am Main.
+      </p>
+      <div class="button-row fly-in" style="--d: 3">
+        <a class="btn" href="/fahrt-anfragen/">Fahrt anfragen</a>
+        <a class="btn btn-outline" href={company.hotline.href}>
+          <Icon name="phone" class="icon icon-sm" />
+          {company.hotline.label}
+        </a>
+      </div>
+      <p class="hero-note fly-in" style="--d: 4">Direkte Abrechnung mit allen gesetzlichen Krankenkassen.</p>
+    </div>
+  </section>
+
+  <section class="trust" aria-label="Unsere Grundwerte">
+    <ul class="container trust-grid">
+      <li>Pünktlich</li>
+      <li>Sicher</li>
+      <li>Persönlich</li>
+      <li>Bargeldlos</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="intro-title">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Krankenfahrdienst</p>
+        <h2 id="intro-title">Mobilität, wenn es darauf ankommt</h2>
+        <p class="muted">
+          Seit {company.founded} bringt PULS Menschen sicher zu Behandlungen, in die Klinik und wieder nach Hause. Unsere geschulten
+          Fahrerinnen und Fahrer holen Sie an der Wohnungstür ab, helfen beim Ein- und Aussteigen und begleiten Sie bis zur Anmeldung.
+        </p>
+        <p class="muted">
+          Als Franchisesystem verbinden wir regionale Nähe mit einheitlich hoher Qualität – an jedem PULS-Standort gelten dieselben
+          Standards für Hygiene, Schulung und Fahrzeugausstattung.
+        </p>
+        <a class="text-link" href="/ueber-uns/">Mehr über PULS →</a>
+      </div>
+      <dl class="value-list reveal" data-reveal="right">
+        <div><dt>Mit Herz</dt><dd>Persönlich und respektvoll</dd></div>
+        <div><dt>Pünktlich</dt><dd>Verlässlich geplant</dd></div>
+        <div><dt>Sicher</dt><dd>Geschultes Personal, geprüfte Fahrzeuge</dd></div>
+        <div><dt>Bargeldlos</dt><dd>Abrechnung direkt mit der Kasse</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section class="section section-light" aria-labelledby="types-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Beförderungsarten</p>
+        <h2 id="types-title">So, wie Sie es brauchen</h2>
+        <p class="muted">Ob Sie sitzen können, im Rollstuhl fahren oder liegend befördert werden müssen – wir haben das passende Fahrzeug und Personal.</p>
+      </div>
+      <div class="grid">
+        {transportTypes.map((t, i) => <TopicCard topic={t} href={`/befoerderungsarten/${t.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="slogan" aria-hidden="true">
+    <div class="container">
+      <p class="reveal" data-reveal="slide"><span class="accent">Mit Herz</span> unterwegs.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Leistungen</p>
+        <h2 id="services-title">Wohin dürfen wir Sie bringen?</h2>
+        <p class="muted">Von der regelmäßigen Dialyse bis zum Flughafentransfer – zuverlässig geplant und auf Ihre Situation abgestimmt.</p>
+      </div>
+      <div class="grid">
+        {services.map((s, i) => <TopicCard topic={s} href={`/leistungen/${s.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink" aria-labelledby="advantages-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ihre Vorteile</p>
+        <h2 id="advantages-title">Darauf können Sie sich verlassen</h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="feature reveal" style="--d: 0">
+          <Icon name="clock" />
+          <div><h3>Pünktlich & planbar</h3><p class="muted">Feste Abholzeiten, Serienfahrten und eine Disposition, die mitdenkt.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 1">
+          <Icon name="card" />
+          <div><h3>Bargeldlos</h3><p class="muted">Mit Verordnung rechnen wir direkt mit Ihrer Krankenkasse ab. Sie zahlen nur die gesetzliche Zuzahlung.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 2">
+          <Icon name="shield" />
+          <div><h3>Geschultes Personal</h3><p class="muted">Erste Hilfe, Personenbeförderungsschein und regelmäßige Schulungen im Umgang mit Patienten.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 0">
+          <Icon name="heart" />
+          <div><h3>Mit Herz</h3><p class="muted">Wir nehmen uns Zeit – vom Klingeln an der Tür bis zur Anmeldung in der Praxis.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 1">
+          <Icon name="wheelchair" />
+          <div><h3>Barrierefreie Flotte</h3><p class="muted">Rampen, Hebebühnen, Tragestühle und Fahrtragen – für jede Mobilitätssituation.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 2">
+          <Icon name="pin" />
+          <div><h3>Regional verwurzelt</h3><p class="muted">Lokale Teams in Aachen, Köln und Frankfurt, die ihre Kliniken und Praxen kennen.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" aria-labelledby="steps-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ablauf</p>
+        <h2 id="steps-title">In vier Schritten zur Krankenfahrt</h2>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => <li class="reveal" style={`--d: ${i}`}><h3>{s.title}</h3><p>{s.text}</p></li>)}
+      </ol>
+      <p class="reveal"><a class="text-link" href="/kostenuebernahme/">Alles zur Kostenübernahme →</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="fleet-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Unser Fuhrpark</p>
+        <h2 id="fleet-title">Das passende Fahrzeug für Ihre Fahrt</h2>
+      </div>
+      <div class="grid grid-3">
+        {fleet.map((v, i) => <VehicleCard vehicle={v} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink" aria-labelledby="locations-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Standorte</p>
+        <h2 id="locations-title">Dreimal PULS in Deutschland</h2>
+        <p class="muted">Jeder Standort wird von einem lokalen Team geführt – mit derselben Qualität und demselben Herz.</p>
+      </div>
+      <div class="grid grid-3">
+        {
+          locations.map((l, i) => (
+            <article class="card card-dark location-card reveal" style={`--d: ${i}`}>
+              <span class="role">{l.role}</span>
+              <h3><a class="card-link" href={`/standorte/${l.slug}/`}>{l.city}</a></h3>
+              <p>{l.region}</p>
+              <ul class="contact-list">
+                <li><Icon name="pin" class="icon icon-sm" />{l.street}, {l.zip} {l.city}</li>
+                <li><Icon name="phone" class="icon icon-sm" />{l.phone.label}</li>
+              </ul>
+              <span class="more" aria-hidden="true">Zum Standort <span>→</span></span>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="franchise-title">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Franchise</p>
+        <h2 id="franchise-title">Werden Sie PULS-Partner</h2>
+        <p class="muted">
+          Sie möchten einen eigenen Krankenfahrdienst gründen – aber nicht bei null anfangen? Mit PULS bekommen Sie eine starke Marke,
+          erprobte Prozesse, Abrechnungs-Know-how und ein Netzwerk, das Sie vom ersten Tag an unterstützt.
+        </p>
+        <a class="btn" href="/franchise/">Zum Franchisekonzept</a>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Aktuell gesucht</strong>
+        <p class="muted">Partner für Düsseldorf, Bonn, Mainz und Wiesbaden.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-ink" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 id="faq-title">Gut zu wissen</h2>
+      </div>
+      <FaqList items={faqs.slice(0, 5)} />
+      <p class="reveal"><a class="text-link" href="/faq/">Alle Fragen ansehen →</a></p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

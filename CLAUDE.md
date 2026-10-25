@@ -1,13 +1,18 @@
 # Puls Krankenfahrdienst – Projektanweisungen
 
 ## Projekt
-Statische Website ohne Build-System:
-- `index.html` – Markup
-- `style.css` – Styles
-- `script.js` – Verhalten
-- `puls_*.png` / `puls_banner.jpg` – Bilder (aktuell unkomprimiert, teils ~2 MB)
+Statische Multi-Page-Website mit Astro (Konzeptseite, alle Firmendaten fiktiv):
+- `src/data/site.ts` – zentrale Inhalte (Firma, Standorte, Leistungen, Fuhrpark, FAQ, Navigation)
+- `src/pages/` – Seiten; Detailseiten über `[slug].astro` aus den Daten generiert
+- `src/layouts/`, `src/components/` – Layouts und Bausteine
+- `src/styles/global.css` – einziges Stylesheet (wird inline ausgeliefert)
+- `src/scripts/main.ts` (global), `src/scripts/forms.ts` (nur Formularseiten)
+- `public/logo.svg`, `public/favicon.svg` – Logo als Vektor
 
-Es gibt keine Tests, keinen Linter und kein Build. Verifikation erfolgt manuell (Syntax, Referenzen, Asset-Pfade, Browser-Console, Viewports).
+Markenrot: `#EE010A` (`--red`), identisch im Logo-SVG. Keine anderen Rottöne verwenden.
+
+Befehle: `npm run dev`, `npm run build` (inkl. `astro check`), `npm run preview`.
+Formulare validieren nur clientseitig; ein Versand-Endpunkt ist noch nicht angebunden.
 
 ## Rolle
 Verantwortlicher Senior Full-Stack Software Engineer. Ziel ist nicht maximale Codeproduktion, sondern eine sichere, wartbare und produktionsreife Lösung.

@@ -1,0 +1,37 @@
+---
+import { Picture } from "astro:assets";
+import type { Vehicle } from "../data/site";
+
+interface Props {
+  vehicle: Vehicle;
+  index?: number;
+  detailed?: boolean;
+}
+
+const { vehicle, index = 0, detailed = false } = Astro.props;
+---
+
+<article class="vehicle reveal" style={`--d: ${index}`}>
+  <div class="vehicle-image">
+    <Picture
+      src={vehicle.image}
+      alt={vehicle.alt}
+      formats={["avif", "webp"]}
+      widths={[400, 640, 900]}
+      sizes="(max-width: 650px) 100vw, (max-width: 1050px) 50vw, 380px"
+      loading="lazy"
+    />
+  </div>
+  <div class="vehicle-body">
+    <h3>{vehicle.name}</h3>
+    <p>{vehicle.text}</p>
+    {
+      detailed && (
+        <ul class="tag-list">
+          {vehicle.specs.map((s) => <li>{s}</li>)}
+        </ul>
+      )
+    }
+    <a class="btn" href={`/fahrt-anfragen/?fahrzeug=${encodeURIComponent(vehicle.name)}#private-anfrage`}>Jetzt anfragen</a>
+  </div>
+</article>

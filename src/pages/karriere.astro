@@ -1,0 +1,113 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { company } from "../data/site";
+
+const jobs = [
+  {
+    title: "Fahrer/in im Krankenfahrdienst",
+    type: "Vollzeit, Teilzeit oder Minijob",
+    places: "Aachen · Köln · Frankfurt",
+    tasks: ["Sitzende, Rollstuhl- und Tragestuhlfahrten", "Begleitung der Fahrgäste bis zur Anmeldung", "Fahrzeugpflege und Hygienedokumentation"],
+    profile: ["Führerschein Klasse B seit mindestens 2 Jahren", "Fahrerlaubnis zur Fahrgastbeförderung (P-Schein) oder Bereitschaft, ihn zu erwerben", "Freundliches, geduldiges Auftreten und gute Deutschkenntnisse"],
+  },
+  {
+    title: "Disponent/in",
+    type: "Vollzeit",
+    places: "Aachen · Köln",
+    tasks: ["Planung der täglichen Touren und Serienfahrten", "Kommunikation mit Fahrgästen, Kliniken und Praxen", "Prüfung von Verordnungen und Genehmigungen"],
+    profile: ["Kaufmännische Ausbildung oder Erfahrung in Disposition/Logistik", "Organisationstalent und Ruhe am Telefon", "Sicher im Umgang mit PC und Software"],
+  },
+  {
+    title: "Quereinsteiger/in Personenbeförderung",
+    type: "Vollzeit oder Teilzeit",
+    places: "Frankfurt am Main",
+    tasks: ["Einarbeitung mit erfahrenen Kolleginnen und Kollegen", "Begleitete Fahrten ab dem ersten Tag", "Schrittweise eigene Touren"],
+    profile: ["Führerschein Klasse B", "Freude am Umgang mit Menschen", "Wir übernehmen die Kosten für P-Schein und Erste-Hilfe-Kurs"],
+  },
+];
+
+const benefits = [
+  { icon: "card", title: "Faire Bezahlung", text: "Über Mindestlohn, Zuschläge für Wochenende und Feiertage." },
+  { icon: "clock", title: "Planbare Schichten", text: "Dienstpläne zwei Wochen im Voraus, Wunschfrei möglich." },
+  { icon: "shield", title: "Moderne Fahrzeuge", text: "Gepflegte, gut ausgestattete Fahrzeuge der Marke Mercedes-Benz." },
+  { icon: "users", title: "Starkes Team", text: "Feste Ansprechpartner, Teamevents und kurze Wege." },
+] as const;
+---
+
+<Base
+  title="Karriere – Jobs im Krankenfahrdienst"
+  description="Jobs bei PULS Krankenfahrdienst: Fahrer/in, Disponent/in und Quereinsteiger in Aachen, Köln und Frankfurt. Faire Bezahlung, planbare Schichten, ein Team mit Herz."
+>
+  <PageHero
+    eyebrow="Karriere"
+    title="Arbeiten mit Herz"
+    lead="Sie möchten etwas Sinnvolles tun und gern mit Menschen arbeiten? Dann passen Sie zu uns. Wir suchen Verstärkung an allen drei Standorten."
+  >
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href={`mailto:${company.jobsEmail}?subject=Bewerbung`}>Jetzt bewerben</a>
+    </div>
+  </PageHero>
+
+  <section class="section section-ink">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ihre Vorteile</p>
+        <h2>Darum PULS</h2>
+      </div>
+      <div class="grid">
+        {
+          benefits.map((b, i) => (
+            <div class="feature reveal" style={`--d: ${i}`}>
+              <Icon name={b.icon} />
+              <div><h3>{b.title}</h3><p class="muted">{b.text}</p></div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Offene Stellen</p>
+        <h2>Aktuelle Stellenangebote</h2>
+      </div>
+      <div class="grid grid-3">
+        {
+          jobs.map((j, i) => (
+            <article class="card reveal" style={`--d: ${i}`}>
+              <h3>{j.title}</h3>
+              <p>{j.type} · {j.places}</p>
+              <h4>Ihre Aufgaben</h4>
+              <ul class="check-list">{j.tasks.map((t) => <li>{t}</li>)}</ul>
+              <h4>Ihr Profil</h4>
+              <ul class="check-list">{j.profile.map((t) => <li>{t}</li>)}</ul>
+              <a class="btn" href={`mailto:${company.jobsEmail}?subject=${encodeURIComponent(`Bewerbung: ${j.title}`)}`}>Bewerben</a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Bewerbung</p>
+        <h2>Unkompliziert bewerben</h2>
+        <p class="muted">
+          Kein Anschreiben nötig: Schicken Sie uns einen kurzen Lebenslauf und Ihren Wunschstandort an
+          <a class="text-link" href={`mailto:${company.jobsEmail}`}>{company.jobsEmail}</a> oder rufen Sie uns an. Wir melden uns innerhalb
+          von drei Werktagen.
+        </p>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Ansprechpartnerin</strong>
+        <p class="muted">Jana Becker, Qualitätsmanagement & Schulung<br />{company.hotline.label}</p>
+      </aside>
+    </div>
+  </section>
+</Base>

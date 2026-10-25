@@ -1,0 +1,81 @@
+---
+import Base from "./Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import CtaBand from "../components/CtaBand.astro";
+import TopicCard from "../components/TopicCard.astro";
+import { company, type Topic } from "../data/site";
+
+interface Props {
+  topic: Topic;
+  section: { label: string; href: string };
+  siblings: Topic[];
+}
+
+const { topic, section, siblings } = Astro.props;
+const others = siblings.filter((s) => s.slug !== topic.slug).slice(0, 3);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: topic.title,
+  description: topic.short,
+  serviceType: "Krankenfahrt",
+  provider: { "@type": "Organization", name: company.name },
+  areaServed: ["Aachen", "Köln", "Frankfurt am Main"],
+};
+---
+
+<Base title={`${topic.title} – Krankenfahrdienst`} description={`${topic.short} PULS Krankenfahrdienst in Aachen, Köln und Frankfurt.`} jsonLd={jsonLd}>
+  <PageHero eyebrow={section.label} title={topic.title} lead={topic.lead} crumbs={[section]}>
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href="/fahrt-anfragen/">Fahrt anfragen</a>
+      <a class="btn btn-outline" href={company.hotline.href}>
+        <Icon name="phone" class="icon icon-sm" />
+        {company.hotline.label}
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split top">
+      <div class="reveal" data-reveal="left">
+        <h2>Das bieten wir Ihnen</h2>
+        <ul class="check-list">
+          {topic.points.map((p) => <li>{p}</li>)}
+        </ul>
+        {
+          topic.details.map((d) => (
+            <>
+              <h3>{d.title}</h3>
+              <p class="muted">{d.text}</p>
+            </>
+          ))
+        }
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <Icon name={topic.icon} class="icon icon-lg" />
+        <p><strong>Fragen zur Kostenübernahme?</strong></p>
+        <p class="muted">
+          Wir erklären Ihnen, welche Unterlagen Sie brauchen, und rechnen mit Verordnung direkt mit Ihrer Krankenkasse ab.
+        </p>
+        <a class="text-link" href="/kostenuebernahme/">Kostenübernahme erklärt →</a>
+        {topic.note && <p class="muted"><strong>Hinweis:</strong> {topic.note}</p>}
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Weitere {section.label}</p>
+        <h2>Das könnte Sie auch interessieren</h2>
+      </div>
+      <div class="grid grid-3">
+        {others.map((o, i) => <TopicCard topic={o} href={`${section.href}${o.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

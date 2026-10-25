@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import VehicleCard from "../components/VehicleCard.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { fleet } from "../data/site";
+---
+
+<Base
+  title="Fuhrpark"
+  description="Der PULS-Fuhrpark: E-Klasse Kombi, Vito mit Rampe und Sprinter mit Hebebühne und Fahrtrage – barrierefrei, gepflegt und regelmäßig desinfiziert."
+>
+  <PageHero
+    eyebrow="Fuhrpark"
+    title="Das passende Fahrzeug für jede Fahrt"
+    lead="46 Fahrzeuge an drei Standorten – von der komfortablen Limousine bis zum Sprinter mit Hebebühne und Fahrtrage."
+  />
+
+  <section class="section">
+    <div class="container grid grid-3">
+      {fleet.map((v, i) => <VehicleCard vehicle={v} index={i} detailed />)}
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ausstattung & Hygiene</p>
+        <h2>Gepflegt, geprüft, sicher</h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="feature reveal">
+          <Icon name="shield" />
+          <div><h3>Regelmäßig geprüft</h3><p class="muted">Alle Fahrzeuge sind nach PBefG zugelassen und werden jährlich technisch geprüft.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 1">
+          <Icon name="heart" />
+          <div><h3>Hygiene nach Plan</h3><p class="muted">Kontaktflächen werden nach jeder Fahrt desinfiziert, die Fahrzeuge wöchentlich grundgereinigt.</p></div>
+        </div>
+        <div class="feature reveal" style="--d: 2">
+          <Icon name="wheelchair" />
+          <div><h3>Barrierefrei</h3><p class="muted">Rampen, Hebebühnen bis 300 kg und Rückhaltesysteme nach DIN 75078.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

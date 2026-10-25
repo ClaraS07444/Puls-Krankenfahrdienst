@@ -1,0 +1,60 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { locations } from "../../data/site";
+---
+
+<Base
+  title="Standorte"
+  description="PULS Krankenfahrdienst ist in Aachen, Köln und Frankfurt am Main für Sie da. Finden Sie Ihren Standort mit Adresse, Telefonnummer und Einsatzgebiet."
+>
+  <PageHero
+    eyebrow="Standorte"
+    title="PULS in Ihrer Nähe"
+    lead="Drei Standorte, ein Anspruch: Unsere lokalen Teams kennen die Kliniken, Praxen und Wege in ihrer Region – und arbeiten nach denselben PULS-Standards."
+  />
+
+  <section class="section section-ink">
+    <div class="container grid grid-3">
+      {
+        locations.map((l, i) => (
+          <article class="card card-dark location-card reveal" style={`--d: ${i}`}>
+            <span class="role">{l.role}</span>
+            <h2><a class="card-link" href={`/standorte/${l.slug}/`}>{l.city}</a></h2>
+            <p>{l.region} · seit {l.opened}</p>
+            <ul class="contact-list">
+              <li><Icon name="pin" class="icon icon-sm" />{l.street}, {l.zip} {l.city}</li>
+              <li><Icon name="phone" class="icon icon-sm" />{l.phone.label}</li>
+              <li><Icon name="mail" class="icon icon-sm" />{l.email}</li>
+            </ul>
+            <ul class="tag-list">
+              {l.areas.slice(0, 5).map((a) => <li>{a}</li>)}
+            </ul>
+            <span class="more" aria-hidden="true">Zum Standort <span>→</span></span>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Wachstum</p>
+        <h2>Ihre Stadt fehlt noch?</h2>
+        <p class="muted">
+          PULS wächst als Franchisesystem. Wir suchen engagierte Unternehmerinnen und Unternehmer, die PULS in ihre Region bringen.
+        </p>
+        <a class="btn" href="/franchise/">Franchisepartner werden</a>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Fernfahrten</strong>
+        <p class="muted">Auch außerhalb unserer Einsatzgebiete fahren wir Sie – etwa zur Reha-Klinik oder zum Flughafen. Fragen Sie uns einfach.</p>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

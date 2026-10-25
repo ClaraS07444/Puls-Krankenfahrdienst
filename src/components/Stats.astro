@@ -1,0 +1,20 @@
+---
+import { company } from "../data/site";
+
+const format = (n: number) => n.toLocaleString("de-DE");
+---
+
+<section class="stats" aria-label="PULS in Zahlen">
+  <div class="container stats-grid">
+    {
+      company.stats.map((s, i) => (
+        <div class="stat reveal" style={`--d: ${i}`}>
+          <span class="stat-value">
+            <span data-count={s.value}>{format(s.value)}</span>{s.suffix}
+          </span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>

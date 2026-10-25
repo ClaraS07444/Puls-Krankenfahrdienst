@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import FaqList from "../components/FaqList.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { faqs } from "../data/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Häufige Fragen (FAQ)"
+  description="Antworten auf häufige Fragen zu Krankenfahrten: Kostenübernahme, Zuzahlung, Unterlagen, Buchung, Begleitpersonen und Privatfahrten."
+  jsonLd={jsonLd}
+>
+  <PageHero eyebrow="FAQ" title="Häufige Fragen" lead="Hier finden Sie Antworten auf die Fragen, die uns am häufigsten gestellt werden. Ihre Frage ist nicht dabei? Rufen Sie uns gern an." />
+
+  <section class="section">
+    <div class="container">
+      <FaqList items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand title="Noch Fragen?" />
+</Base>

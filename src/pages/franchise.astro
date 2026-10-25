@@ -1,0 +1,144 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { company, locations } from "../data/site";
+
+const offer = [
+  { icon: "heart", title: "Starke Marke", text: "Ein Markenauftritt mit Wiedererkennung – von der Fahrzeugbeschriftung bis zur Website." },
+  { icon: "document", title: "Abrechnung & Kassenverträge", text: "Know-how und Unterstützung bei Verträgen mit Krankenkassen und der Abrechnung." },
+  { icon: "clock", title: "Dispositionssoftware", text: "Unsere erprobte Software für Touren, Serienfahrten und Dokumentation." },
+  { icon: "users", title: "Schulung & Recruiting", text: "Einarbeitung für Sie und Ihr Team, Schulungsprogramm und Unterstützung bei der Personalsuche." },
+  { icon: "card", title: "Einkaufsvorteile", text: "Rahmenverträge für Fahrzeuge, Umbauten, Versicherungen und Hilfsmittel." },
+  { icon: "pin", title: "Gebietsschutz", text: "Ein exklusives Vertragsgebiet mit klar definiertem Einzugsbereich." },
+] as const;
+
+const process = [
+  { title: "Erstgespräch", text: "Wir lernen uns kennen und besprechen Ihre Ziele und Ihre Region." },
+  { title: "Standortanalyse", text: "Gemeinsam prüfen wir Marktpotenzial, Kliniken und Wettbewerb." },
+  { title: "Partnervertrag", text: "Sie erhalten alle Unterlagen inklusive Franchisehandbuch zur Prüfung." },
+  { title: "Gründung & Start", text: "Konzession, Fahrzeuge, Team – wir begleiten Sie bis zur ersten Fahrt." },
+];
+
+const partners = locations.filter((l) => l.role === "Franchisepartner");
+---
+
+<Base
+  title="Franchise – Partner werden"
+  description="Werden Sie PULS-Franchisepartner: Gründen Sie Ihren eigenen Krankenfahrdienst mit starker Marke, Abrechnungs-Know-how, Software und Gebietsschutz."
+>
+  <PageHero
+    eyebrow="Franchise"
+    title="Ihr eigener Krankenfahrdienst – mit PULS im Rücken"
+    lead="Gründen Sie ein sinnstiftendes Unternehmen in einem wachsenden Markt. Wir bringen Marke, Prozesse und Erfahrung mit – Sie Ihr Engagement und Ihr regionales Netzwerk."
+  >
+    <div class="button-row fly-in" style="--d: 3">
+      <a class="btn" href="#franchise-anfrage">Erstgespräch vereinbaren</a>
+    </div>
+  </PageHero>
+
+  <section class="stats" aria-label="Franchise in Zahlen">
+    <div class="container stats-grid">
+      <div class="stat reveal"><span class="stat-value">{company.franchiseSince}</span><span class="stat-label">Franchisestart</span></div>
+      <div class="stat reveal" style="--d: 1"><span class="stat-value"><span data-count={partners.length}>{partners.length}</span></span><span class="stat-label">aktive Partner</span></div>
+      <div class="stat reveal" style="--d: 2"><span class="stat-value">4–6</span><span class="stat-label">Monate bis zum Start</span></div>
+      <div class="stat reveal" style="--d: 3"><span class="stat-value"><span data-count="4">4</span></span><span class="stat-label">Regionen gesucht</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Das bekommen Sie</p>
+        <h2>Ein erprobtes System</h2>
+      </div>
+      <div class="grid grid-3">
+        {
+          offer.map((o, i) => (
+            <div class="feature reveal" style={`--d: ${i % 3}`}>
+              <Icon name={o.icon} />
+              <div><h3>{o.title}</h3><p class="muted">{o.text}</p></div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container split top">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Voraussetzungen</p>
+        <h2>Das bringen Sie mit</h2>
+        <ul class="check-list">
+          <li>Unternehmerischer Antrieb und Freude an Führung</li>
+          <li>Empathie für Menschen in schwierigen Lebenslagen</li>
+          <li>Eigenkapital ab 40.000 €</li>
+          <li>Bereitschaft zur Fachkundeprüfung für den Personenverkehr (IHK)</li>
+          <li>Regionale Verankerung im Wunschgebiet</li>
+        </ul>
+      </div>
+      <aside class="notice reveal" data-reveal="right">
+        <strong>Konditionen auf einen Blick</strong>
+        <dl class="value-list">
+          <div><dt>Einstiegsgebühr</dt><dd>15.000 € zzgl. MwSt.</dd></div>
+          <div><dt>Laufende Gebühr</dt><dd>5 % vom Nettoumsatz</dd></div>
+          <div><dt>Marketingbeitrag</dt><dd>1 % vom Nettoumsatz</dd></div>
+          <div><dt>Vertragslaufzeit</dt><dd>10 Jahre</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ihr Weg zu PULS</p>
+        <h2>In vier Schritten zum eigenen Standort</h2>
+      </div>
+      <ol class="steps">
+        {process.map((s, i) => <li class="reveal" style={`--d: ${i}`}><h3>{s.title}</h3><p>{s.text}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-light" id="franchise-anfrage">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Unverbindliches Erstgespräch anfragen</h2>
+        <p class="muted">Tobias Krämer, Franchise-Entwicklung · <a class="text-link" href={`mailto:${company.franchiseEmail}`}>{company.franchiseEmail}</a></p>
+      </div>
+      <form class="request-form reveal" data-validate novalidate aria-labelledby="franchise-form-title">
+        <h3 id="franchise-form-title" class="sr-only">Franchise-Anfrage</h3>
+        <div class="form-errors" hidden tabindex="-1"></div>
+        <div class="form-grid">
+          <label><span class="label-text">Vorname *</span><input name="firstName" autocomplete="given-name" required minlength="2" maxlength="60" /></label>
+          <label><span class="label-text">Nachname *</span><input name="lastName" autocomplete="family-name" required minlength="2" maxlength="80" /></label>
+          <label><span class="label-text">E-Mail *</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label><span class="label-text">Telefon</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9() /\-]{6,30}" /></label>
+          <label><span class="label-text">Wunschregion *</span><input name="region" required maxlength="80" /></label>
+          <label>
+            <span class="label-text">Verfügbares Eigenkapital</span>
+            <select name="capital">
+              <option value="">Bitte wählen</option>
+              <option>unter 40.000 €</option>
+              <option>40.000 – 80.000 €</option>
+              <option>über 80.000 €</option>
+            </select>
+          </label>
+          <label class="full"><span class="label-text">Ihre Nachricht</span><textarea name="message" maxlength="2000"></textarea></label>
+        </div>
+        <div class="checks">
+          <label><input type="checkbox" required /><span>Ich habe die <a href="/datenschutz/">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Anfrage zu. *</span></label>
+        </div>
+        <button class="btn" type="submit">Anfrage senden</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import "../scripts/forms";
+</script>

@@ -1,0 +1,113 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Stats from "../components/Stats.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { company } from "../data/site";
+
+const milestones = [
+  { year: "2014", text: "Gründung in Aachen mit zwei Fahrzeugen und einem Ziel: Krankenfahrten mit Herz." },
+  { year: "2017", text: "Erste Rollstuhl- und Tragestuhlfahrzeuge, Verträge mit allen großen Krankenkassen." },
+  { year: "2020", text: "Eigene Disposition mit digitaler Tourenplanung, 15 Fahrzeuge in der Städteregion." },
+  { year: "2022", text: "Start des Franchisesystems – Köln wird der erste Partnerstandort." },
+  { year: "2024", text: "Eröffnung in Frankfurt am Main, über 100 Mitarbeitende im PULS-Netzwerk." },
+];
+
+const team = [
+  { name: "Leonie Hartmann", role: "Geschäftsführung & Gründerin" },
+  { name: "Murat Yılmaz", role: "Leitung Disposition" },
+  { name: "Jana Becker", role: "Qualitätsmanagement & Schulung" },
+  { name: "Tobias Krämer", role: "Franchise-Entwicklung" },
+];
+---
+
+<Base
+  title="Über uns"
+  description="PULS Krankenfahrdienst: seit 2014 Krankenfahrten mit Herz. Lernen Sie unsere Geschichte, Werte und das Team hinter PULS kennen."
+>
+  <PageHero
+    eyebrow="Über uns"
+    title="Menschlichkeit in Bewegung"
+    lead={`Seit ${company.founded} bringen wir Menschen sicher, pünktlich und mit persönlicher Aufmerksamkeit ans Ziel. Aus einem kleinen Aachener Betrieb ist ein Netzwerk mit drei Standorten geworden.`}
+  />
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Unsere Haltung</p>
+        <h2>Jede Fahrt ist persönlich</h2>
+        <p class="muted">
+          Wer zu uns ins Auto steigt, hat oft einen schweren Weg vor sich – zur Dialyse, zur Chemotherapie oder nach Hause aus dem
+          Krankenhaus. Deshalb verstehen wir uns nicht als reines Transportunternehmen, sondern als Begleiter.
+        </p>
+        <p class="muted">
+          Unsere Fahrerinnen und Fahrer haben Zeit für ein Gespräch, helfen beim Mantel und warten, bis Sie sicher angekommen sind.
+          Das ist es, was wir mit „Mit Herz unterwegs“ meinen.
+        </p>
+      </div>
+      <dl class="value-list reveal" data-reveal="right">
+        <div><dt>Mit Herz</dt><dd>Persönlich und respektvoll</dd></div>
+        <div><dt>Pünktlich</dt><dd>Verlässlich geplant</dd></div>
+        <div><dt>Sicher</dt><dd>Verantwortungsbewusste Abläufe</dd></div>
+        <div><dt>Diskret</dt><dd>Vertraulicher Umgang mit Ihren Daten</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Unsere Geschichte</p>
+        <h2>Von zwei Autos zu drei Standorten</h2>
+      </div>
+      <ol class="steps timeline">
+        {milestones.map((m, i) => <li class="reveal" style={`--d: ${i}`}><h3>{m.year}</h3><p>{m.text}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Team</p>
+        <h2>Die Menschen hinter PULS</h2>
+        <p class="muted">Dazu kommen über 100 Fahrerinnen, Fahrer und Disponenten an unseren drei Standorten.</p>
+      </div>
+      <div class="grid">
+        {
+          team.map((p, i) => (
+            <article class="card card-dark reveal" style={`--d: ${i}`}>
+              <h3>{p.name}</h3>
+              <p>{p.role}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Qualität</p>
+        <h2>Unsere Standards an allen Standorten</h2>
+        <ul class="check-list">
+          <li>Personenbeförderungsschein und Erste-Hilfe-Ausbildung für alle Fahrer</li>
+          <li>Jährliche Schulungen: Patientenumgang, Demenz, Hygiene, Tragetechnik</li>
+          <li>Genehmigung nach Personenbeförderungsgesetz (PBefG)</li>
+          <li>Verträge mit allen gesetzlichen Krankenkassen</li>
+          <li>Datenschutz nach DSGVO in Disposition und Abrechnung</li>
+        </ul>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Bei uns arbeiten?</strong>
+        <p class="muted">Wir suchen Fahrerinnen, Fahrer und Disponenten mit Herz – in Voll- und Teilzeit.</p>
+        <a class="text-link" href="/karriere/">Zu den Stellenangeboten →</a>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

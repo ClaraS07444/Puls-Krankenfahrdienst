@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import TopicCard from "../../components/TopicCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { transportTypes } from "../../data/site";
+---
+
+<Base
+  title="Beförderungsarten"
+  description="Sitzende und begleitete Fahrten, Rollstuhl-, Tragestuhl- und Liegendfahrten: PULS Krankenfahrdienst befördert Sie so, wie Sie es brauchen."
+>
+  <PageHero
+    eyebrow="Beförderungsarten"
+    title="So, wie Sie es brauchen"
+    lead="Welche Beförderungsart die richtige ist, hängt von Ihrer Mobilität ab. Ihr Arzt legt sie in der Verordnung fest – wir sorgen für Fahrzeug, Hilfsmittel und Personal."
+  />
+
+  <section class="section section-light">
+    <div class="container">
+      <div class="grid">
+        {transportTypes.map((t, i) => <TopicCard topic={t} href={`/befoerderungsarten/${t.slug}/`} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal" data-reveal="left">
+        <p class="eyebrow">Wichtig</p>
+        <h2>Krankenfahrt oder Krankentransport?</h2>
+        <p class="muted">
+          PULS ist ein Krankenfahrdienst. Wir befördern Sie ohne medizinisch-fachliche Betreuung. Benötigen Sie während der Fahrt
+          medizinische Versorgung – zum Beispiel Sauerstoff oder Überwachung –, ist ein qualifizierter Krankentransport (KTW) nötig.
+          Diesen erreichen Sie über die Leitstelle unter <strong>19222</strong>.
+        </p>
+      </div>
+      <aside class="notice notice-dark reveal" data-reveal="right">
+        <strong>Kein Notdienst</strong>
+        <p class="muted">Bei akuten medizinischen Notfällen wählen Sie bitte sofort <strong>112</strong>.</p>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

@@ -1,0 +1,58 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { navigation, company } from "../data/site";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== "/" && path.startsWith(href));
+const isChildActive = (children?: { href: string }[]) => children?.some((c) => isActive(c.href)) ?? false;
+---
+
+<header class="site-header" data-header>
+  <div class="container nav-wrap">
+    <a class="brand" href="/" aria-label="PULS Krankenfahrdienst – Startseite">
+      <Logo width={150} eager />
+    </a>
+
+    <button class="menu-button" type="button" aria-controls="primary-nav" aria-expanded="false" data-menu-button>
+      <span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only" data-menu-label>Menü öffnen</span>
+    </button>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Hauptnavigation" data-nav>
+      <ul class="nav-list">
+        {
+          navigation.map((item) => (
+            <li class:list={["nav-item", { "has-children": item.children }]}>
+              <a
+                href={item.href}
+                class:list={{ active: isActive(item.href) || isChildActive(item.children) }}
+                aria-current={path === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+              {item.children && (
+                <ul class="subnav">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} aria-current={path === child.href ? "page" : undefined}>
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-phone" href={company.hotline.href}>
+          <Icon name="phone" class="icon icon-sm" />
+          <span>{company.hotline.label}</span>
+        </a>
+        <a class="btn btn-small" href="/fahrt-anfragen/">Fahrt anfragen</a>
+      </div>
+    </nav>
+  </div>
+</header>
