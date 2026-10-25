@@ -378,7 +378,6 @@ p {
 .hero {
   position: relative;
   display: grid;
-  align-items: center;
   min-height: min(780px, 92svh);
   overflow: hidden;
 }
@@ -403,20 +402,24 @@ p {
   background: linear-gradient(90deg, var(--black) 0%, var(--black) 26%, rgb(0 0 0 / 0.86) 42%, rgb(0 0 0 / 0.32) 70%, rgb(0 0 0 / 0.15));
 }
 
+/* Logo top, headline centre, buttons bottom – spread over the full hero height. */
 .hero-content {
   position: relative;
   z-index: 1;
-  padding-block: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: clamp(32px, 6vh, 64px);
 }
 
 .hero-logo {
   width: min(400px, 72vw);
-  margin-bottom: 16px;
 }
 
 .hero h1 {
   max-width: 720px;
-  margin: 0 0 18px;
+  margin: 0;
   font-size: clamp(2.6rem, 6vw, 5rem);
   line-height: 1.03;
 }
@@ -424,10 +427,6 @@ p {
 .hero h1 span,
 .accent {
   color: var(--red);
-}
-
-.hero .button-row {
-  margin-top: 32px;
 }
 
 .page-hero {
@@ -578,7 +577,7 @@ p {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 22px 0;
-  margin: 0;
+  margin-block: 0;
   list-style: none;
   font-weight: 700;
   text-align: center;
