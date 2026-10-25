@@ -426,18 +426,8 @@ p {
   color: var(--red);
 }
 
-.hero-lead {
-  max-width: 600px;
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
-}
-
 .hero .button-row {
   margin-top: 32px;
-}
-
-.hero-note {
-  color: var(--muted-dark);
-  font-size: 0.9rem;
 }
 
 .page-hero {
