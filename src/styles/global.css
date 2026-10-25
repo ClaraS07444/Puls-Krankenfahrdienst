@@ -410,7 +410,7 @@ p {
   flex-direction: column;
   justify-content: space-between;
   gap: 32px;
-  padding-block: clamp(32px, 6vh, 64px);
+  padding-block: clamp(56px, 11vh, 112px);
 }
 
 .hero-logo {
