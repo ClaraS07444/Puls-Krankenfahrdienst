@@ -208,12 +208,13 @@ p {
 /* =========================================================
    Header & navigation
    ========================================================= */
+/* No backdrop-filter here: it would make the header the containing block for
+   the fixed mobile menu and clip the menu to the header's height. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgb(0 0 0 / 0.94);
-  backdrop-filter: blur(12px);
+  background: var(--black);
   border-bottom: 1px solid var(--line);
   transition: box-shadow 0.3s ease;
 }
