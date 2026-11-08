@@ -1,5 +1,5 @@
-// Central content source. All company, contact and franchise data is fictional
-// (concept site) and must be replaced with verified data before going live.
+// Central content source. PULS is a fictional company (concept project by
+// C AGENCY); it deliberately has no real-looking contact data.
 
 import kombi from "../assets/fahrzeug-kombi.jpg";
 import vito from "../assets/fahrzeug-vito.jpg";
@@ -24,20 +24,24 @@ export type IconName =
   | "clock"
   | "heart"
   | "card"
-  | "phone"
-  | "mail"
   | "pin";
+
+// Real site owner (Impressum, Datenschutz) and design credit.
+export const owner = {
+  name: "Clara Schumann",
+  street: "Bendstraße 3",
+  zip: "52066",
+  city: "Aachen",
+  email: "clara.s@c-agency.cc",
+};
+
+export const agency = { name: "C AGENCY", url: "https://c-agency.cc" };
 
 export const company = {
   name: "PULS Krankenfahrdienst",
-  legalName: "PULS Mobilität GmbH",
   slogan: "Mit Herz unterwegs.",
   founded: 2014,
   franchiseSince: 2022,
-  email: "info@puls-krankenfahrdienst.de",
-  franchiseEmail: "franchise@puls-krankenfahrdienst.de",
-  jobsEmail: "karriere@puls-krankenfahrdienst.de",
-  hotline: { label: "0241 990 41 00", href: "tel:+492419904100" },
   dispatchHours: [
     { days: "Montag – Freitag", time: "06:00 – 20:00 Uhr" },
     { days: "Samstag", time: "07:00 – 14:00 Uhr" },
@@ -49,10 +53,6 @@ export const company = {
     { value: 110, suffix: "+", label: "geschulte Mitarbeitende" },
     { value: 65000, suffix: "+", label: "Fahrten pro Jahr" },
   ],
-  social: [
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "Facebook", href: "https://www.facebook.com/" },
-  ],
 };
 
 export type Location = {
@@ -60,14 +60,8 @@ export type Location = {
   city: string;
   region: string;
   role: string;
-  operator: string;
-  street: string;
-  zip: string;
-  phone: { label: string; href: string };
-  email: string;
   opened: number;
   vehicles: number;
-  geo: { lat: number; lng: number };
   areas: string[];
   destinations: string[];
   intro: string;
@@ -79,14 +73,8 @@ export const locations: Location[] = [
     city: "Aachen",
     region: "Städteregion Aachen",
     role: "Systemzentrale & Pilotbetrieb",
-    operator: "PULS Mobilität GmbH",
-    street: "Jülicher Straße 215",
-    zip: "52070",
-    phone: { label: "0241 990 41 00", href: "tel:+492419904100" },
-    email: "aachen@puls-krankenfahrdienst.de",
     opened: 2014,
     vehicles: 20,
-    geo: { lat: 50.7867, lng: 6.1095 },
     areas: [
       "Aachen",
       "Alsdorf",
@@ -114,14 +102,8 @@ export const locations: Location[] = [
     city: "Köln",
     region: "Köln & Rhein-Erft-Kreis",
     role: "Franchisepartner",
-    operator: "Rheinmobil Care GmbH",
-    street: "Aachener Straße 1040",
-    zip: "50858",
-    phone: { label: "0221 4710 410", href: "tel:+492214710410" },
-    email: "koeln@puls-krankenfahrdienst.de",
     opened: 2022,
     vehicles: 15,
-    geo: { lat: 50.9333, lng: 6.8622 },
     areas: ["Köln", "Frechen", "Hürth", "Pulheim", "Brühl", "Bergheim", "Leverkusen"],
     destinations: [
       "Uniklinik Köln",
@@ -137,14 +119,8 @@ export const locations: Location[] = [
     city: "Frankfurt am Main",
     region: "Frankfurt & Rhein-Main",
     role: "Franchisepartner",
-    operator: "MainPuls Mobilitätsdienste GmbH",
-    street: "Hanauer Landstraße 300",
-    zip: "60314",
-    phone: { label: "069 90009 300", href: "tel:+496990009300" },
-    email: "frankfurt@puls-krankenfahrdienst.de",
     opened: 2024,
     vehicles: 11,
-    geo: { lat: 50.1131, lng: 8.7183 },
     areas: ["Frankfurt am Main", "Offenbach", "Bad Vilbel", "Eschborn", "Oberursel", "Neu-Isenburg"],
     destinations: [
       "Universitätsklinikum Frankfurt",

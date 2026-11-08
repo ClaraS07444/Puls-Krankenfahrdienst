@@ -16,6 +16,7 @@
   --container: 1200px;
   --gutter: clamp(16px, 4vw, 24px);
   --header-h: 80px;
+  --bar-h: 32px;
   --shadow: 0 16px 40px rgb(0 0 0 / 0.14);
   --ease-out: cubic-bezier(0.2, 0.72, 0.2, 1);
   color-scheme: dark;
@@ -29,7 +30,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: calc(var(--bar-h) + var(--header-h) + 16px);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -223,6 +224,29 @@ p {
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
 }
 
+/* Concept notice: single line so the header height stays predictable. */
+.concept-bar {
+  height: var(--bar-h);
+  margin: 0;
+  overflow: hidden;
+  background: var(--red);
+  font-size: min(0.8rem, 3.4vw);
+  font-weight: 700;
+  line-height: var(--bar-h);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-inline: var(--gutter);
+}
+
+.concept-bar a {
+  text-decoration: none;
+}
+
+.concept-bar a:hover {
+  text-decoration: underline;
+}
+
 .nav-wrap {
   display: flex;
   align-items: center;
@@ -328,19 +352,6 @@ p {
   align-items: center;
   gap: 16px;
   white-space: nowrap;
-}
-
-.nav-phone {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.nav-phone .icon {
-  color: var(--red);
 }
 
 .menu-button {
@@ -985,34 +996,6 @@ p {
   font-weight: 700;
 }
 
-.contact-list {
-  display: grid;
-  gap: 10px;
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.contact-list li {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-.contact-list .icon {
-  margin-top: 2px;
-  color: var(--red);
-}
-
-.contact-list a {
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.contact-list a:hover {
-  text-decoration: underline;
-}
-
 .hours {
   display: grid;
   gap: 6px;
@@ -1335,11 +1318,6 @@ p {
   font-weight: 700;
 }
 
-.site-footer .footer-social {
-  display: flex;
-  gap: 16px;
-}
-
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
@@ -1451,12 +1429,6 @@ p {
 /* =========================================================
    Responsive
    ========================================================= */
-@media (max-width: 1180px) {
-  .nav-phone span {
-    display: none;
-  }
-}
-
 @media (max-width: 1050px) {
   .menu-button {
     display: block;
@@ -1464,7 +1436,7 @@ p {
 
   .primary-nav {
     position: fixed;
-    inset: var(--header-h) 0 0;
+    inset: calc(var(--bar-h) + var(--header-h)) 0 0;
     flex-direction: column;
     align-items: stretch;
     gap: 24px;
@@ -1505,11 +1477,6 @@ p {
     align-items: stretch;
   }
 
-  .nav-phone span {
-    display: inline;
-  }
-
-  .nav-phone,
   .nav-actions .btn {
     justify-content: center;
     min-height: 52px;

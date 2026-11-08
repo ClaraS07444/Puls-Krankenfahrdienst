@@ -1,7 +1,4 @@
 ---
-import Icon from "./Icon.astro";
-import { company } from "../data/site";
-
 interface Props {
   title?: string;
   text?: string;
@@ -9,7 +6,7 @@ interface Props {
 
 const {
   title = "Fahrt planen? Wir sind für Sie da.",
-  text = "Rufen Sie unsere Disposition an oder schicken Sie uns Ihre Anfrage online. Wir melden uns schnell mit einer Bestätigung.",
+  text = "Schicken Sie uns Ihre Anfrage online. Wir prüfen sie und melden uns mit einer Bestätigung.",
 } = Astro.props;
 ---
 
@@ -20,11 +17,8 @@ const {
       <p>{text}</p>
     </div>
     <div class="button-row">
-      <a class="btn btn-light" href={company.hotline.href}>
-        <Icon name="phone" class="icon icon-sm" />
-        {company.hotline.label}
-      </a>
-      <a class="btn btn-outline" href="/fahrt-anfragen/">Online anfragen</a>
+      <a class="btn btn-light" href="/fahrt-anfragen/">Online anfragen</a>
+      <a class="btn btn-outline" href="/faq/">Häufige Fragen</a>
     </div>
   </div>
 </section>

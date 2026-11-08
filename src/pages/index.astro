@@ -15,24 +15,9 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: company.name,
-  legalName: company.legalName,
   url: Astro.site?.href,
   logo: new URL("/logo.svg", Astro.site).href,
-  email: company.email,
-  telephone: company.hotline.href.replace("tel:", ""),
-  foundingDate: String(company.founded),
   slogan: company.slogan,
-  location: locations.map((l) => ({
-    "@type": "Place",
-    name: `${company.name} ${l.city}`,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: l.street,
-      postalCode: l.zip,
-      addressLocality: l.city,
-      addressCountry: "DE",
-    },
-  })),
 };
 ---
 
@@ -59,10 +44,7 @@ const jsonLd = {
       <h1 id="hero-title" class="fly-in" style="--d: 1"><span>Mit Herz</span> unterwegs.</h1>
       <div class="button-row fly-in" style="--d: 2">
         <a class="btn" href="/fahrt-anfragen/">Fahrt anfragen</a>
-        <a class="btn btn-outline" href={company.hotline.href}>
-          <Icon name="phone" class="icon icon-sm" />
-          {company.hotline.label}
-        </a>
+        <a class="btn btn-outline" href="/leistungen/">Unsere Leistungen</a>
       </div>
     </div>
   </section>
@@ -208,9 +190,8 @@ const jsonLd = {
               <span class="role">{l.role}</span>
               <h3><a class="card-link" href={`/standorte/${l.slug}/`}>{l.city}</a></h3>
               <p>{l.region}</p>
-              <ul class="contact-list">
-                <li><Icon name="pin" class="icon icon-sm" />{l.street}, {l.zip} {l.city}</li>
-                <li><Icon name="phone" class="icon icon-sm" />{l.phone.label}</li>
+              <ul class="tag-list">
+                {l.areas.slice(0, 4).map((a) => <li>{a}</li>)}
               </ul>
               <span class="more" aria-hidden="true">Zum Standort <span>→</span></span>
             </article>

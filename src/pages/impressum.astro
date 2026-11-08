@@ -1,49 +1,31 @@
 ---
 import LegalPage from "../layouts/LegalPage.astro";
-import { company, locations } from "../data/site";
-
-const hq = locations[0]!;
+import { agency, company, owner } from "../data/site";
 ---
 
-<LegalPage title="Impressum" description="Impressum der PULS Mobilität GmbH – Angaben gemäß § 5 DDG.">
+<LegalPage title="Impressum" description="Impressum – Angaben gemäß § 5 DDG.">
   <p class="notice notice-dark">
-    <strong>Konzeptseite:</strong> Alle Unternehmens- und Kontaktdaten auf dieser Website sind fiktiv und dienen nur der Darstellung.
+    Diese Website ist ein Konzeptprojekt von <a href={agency.url} rel="noopener">{agency.name}</a>. {company.name} ist ein fiktives
+    Unternehmen.
   </p>
 
   <h2>Angaben gemäß § 5 DDG</h2>
   <p>
-    {company.legalName}<br />
-    {hq.street}<br />
-    {hq.zip} {hq.city}
+    {owner.name}<br />
+    {owner.street}<br />
+    {owner.zip} {owner.city}
   </p>
-
-  <h3>Vertreten durch</h3>
-  <p>Leonie Hartmann (Geschäftsführerin)</p>
 
   <h3>Kontakt</h3>
-  <p>
-    Telefon: <a href={company.hotline.href}>{company.hotline.label}</a><br />
-    E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
-  </p>
-
-  <h3>Registereintrag</h3>
-  <p>Registergericht: Amtsgericht Aachen<br />Registernummer: HRB 00000</p>
-
-  <h3>Umsatzsteuer-ID</h3>
-  <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE000000000</p>
-
-  <h3>Genehmigung</h3>
-  <p>
-    Genehmigung zur Personenbeförderung mit Mietwagen nach §§ 2, 49 PBefG, erteilt durch die Städteregion Aachen.<br />
-    Die Franchisestandorte Köln und Frankfurt am Main werden von rechtlich selbstständigen Partnerunternehmen mit eigener Genehmigung betrieben:
-  </p>
-  <ul>
-    {locations.slice(1).map((l) => <li>{l.operator}, {l.street}, {l.zip} {l.city}</li>)}
-  </ul>
+  <p>E-Mail: <a href={`mailto:${owner.email}`}>{owner.email}</a></p>
 
   <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
-  <p>Leonie Hartmann, Anschrift wie oben</p>
+  <p>{owner.name}, Anschrift wie oben</p>
 
-  <h3>Verbraucherstreitbeilegung</h3>
-  <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  <h3>Hinweis zu den Inhalten</h3>
+  <p>
+    Alle Angaben zu {company.name} – Standorte, Fahrzeuge, Personen, Kennzahlen und Konditionen – sind frei erfunden und dienen
+    ausschließlich der Präsentation des Designs. Über diese Website können keine Fahrten gebucht werden; Formulareingaben werden nicht
+    übermittelt.
+  </p>
 </LegalPage>

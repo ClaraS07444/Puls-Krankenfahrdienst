@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://www.puls-krankenfahrdienst.de",
+  site: "https://puls-krankenfahrdienst.pages.dev",
   trailingSlash: "always",
   integrations: [sitemap()],
   build: {

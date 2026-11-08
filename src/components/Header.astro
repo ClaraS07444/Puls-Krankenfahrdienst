@@ -1,7 +1,6 @@
 ---
 import Logo from "./Logo.astro";
-import Icon from "./Icon.astro";
-import { navigation, company } from "../data/site";
+import { navigation, agency } from "../data/site";
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || (href !== "/" && path.startsWith(href));
@@ -9,6 +8,9 @@ const isChildActive = (children?: { href: string }[]) => children?.some((c) => i
 ---
 
 <header class="site-header" data-header>
+  <p class="concept-bar">
+    <a href="/impressum/">Konzeptprojekt von {agency.name} – fiktives Unternehmen</a>
+  </p>
   <div class="container nav-wrap">
     <a class="brand" href="/" aria-label="PULS Krankenfahrdienst – Startseite">
       <Logo width={150} eager />
@@ -47,10 +49,6 @@ const isChildActive = (children?: { href: string }[]) => children?.some((c) => i
         }
       </ul>
       <div class="nav-actions">
-        <a class="nav-phone" href={company.hotline.href}>
-          <Icon name="phone" class="icon icon-sm" />
-          <span>{company.hotline.label}</span>
-        </a>
         <a class="btn btn-small" href="/fahrt-anfragen/">Fahrt anfragen</a>
       </div>
     </nav>

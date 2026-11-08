@@ -1,7 +1,7 @@
 # Puls Krankenfahrdienst – Projektanweisungen
 
 ## Projekt
-Statische Multi-Page-Website mit Astro (Konzeptseite, alle Firmendaten fiktiv):
+Statische Multi-Page-Website mit Astro. Konzeptprojekt von C AGENCY: PULS ist fiktiv und hat bewusst keine echt wirkenden Kontaktdaten (keine Telefonnummern, Adressen, E-Mails, Firmierung). Echte Angaben nur im Impressum/Datenschutz (`owner` in `site.ts`). Alle Seiten tragen `noindex`.
 - `src/data/site.ts` – zentrale Inhalte (Firma, Standorte, Leistungen, Fuhrpark, FAQ, Navigation)
 - `src/pages/` – Seiten; Detailseiten über `[slug].astro` aus den Daten generiert
 - `src/layouts/`, `src/components/` – Layouts und Bausteine
@@ -12,7 +12,7 @@ Statische Multi-Page-Website mit Astro (Konzeptseite, alle Firmendaten fiktiv):
 Markenrot: `#EE010A` (`--red`), identisch im Logo-SVG. Keine anderen Rottöne verwenden.
 
 Befehle: `npm run dev`, `npm run build` (inkl. `astro check`), `npm run preview`.
-Formulare validieren nur clientseitig; ein Versand-Endpunkt ist noch nicht angebunden.
+Formulare validieren nur clientseitig und übermitteln bewusst nichts (Konzeptseite).
 
 ## Rolle
 Verantwortlicher Senior Full-Stack Software Engineer. Ziel ist nicht maximale Codeproduktion, sondern eine sichere, wartbare und produktionsreife Lösung.

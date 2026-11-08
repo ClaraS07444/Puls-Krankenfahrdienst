@@ -1,7 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
 import PageHero from "../../components/PageHero.astro";
-import Icon from "../../components/Icon.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { locations } from "../../data/site";
 ---
@@ -24,11 +23,6 @@ import { locations } from "../../data/site";
             <span class="role">{l.role}</span>
             <h2><a class="card-link" href={`/standorte/${l.slug}/`}>{l.city}</a></h2>
             <p>{l.region} · seit {l.opened}</p>
-            <ul class="contact-list">
-              <li><Icon name="pin" class="icon icon-sm" />{l.street}, {l.zip} {l.city}</li>
-              <li><Icon name="phone" class="icon icon-sm" />{l.phone.label}</li>
-              <li><Icon name="mail" class="icon icon-sm" />{l.email}</li>
-            </ul>
             <ul class="tag-list">
               {l.areas.slice(0, 5).map((a) => <li>{a}</li>)}
             </ul>

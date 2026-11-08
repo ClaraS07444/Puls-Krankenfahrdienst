@@ -1,6 +1,6 @@
 ---
 import Logo from "./Logo.astro";
-import { company, locations, services, transportTypes } from "../data/site";
+import { agency, company, locations, services, transportTypes } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
@@ -9,10 +9,7 @@ const year = new Date().getFullYear();
   <div class="container footer-grid">
     <div class="footer-brand">
       <Logo width={170} />
-      <p>{company.slogan} Krankenfahrten in Aachen, Köln und Frankfurt am Main.</p>
-      <ul class="footer-social">
-        {company.social.map((s) => <li><a href={s.href} rel="noopener">{s.label}</a></li>)}
-      </ul>
+      <p>{company.slogan} Ein Konzeptprojekt – {company.name} ist ein fiktives Unternehmen.</p>
     </div>
 
     <nav aria-label="Leistungen">
@@ -42,7 +39,6 @@ const year = new Date().getFullYear();
           locations.map((l) => (
             <li>
               <a href={`/standorte/${l.slug}/`}>{l.city}</a>
-              <a class="footer-phone" href={l.phone.href}>{l.phone.label}</a>
             </li>
           ))
         }
@@ -51,7 +47,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container footer-bottom">
-    <p>© {year} {company.legalName}</p>
+    <p>© {year} {company.name} · Design: <a href={agency.url} rel="noopener">{agency.name}</a></p>
     <nav aria-label="Rechtliches">
       <ul>
         <li><a href="/impressum/">Impressum</a></li>

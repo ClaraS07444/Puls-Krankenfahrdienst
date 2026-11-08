@@ -1,5 +1,5 @@
-// Client-side validation only. No data is transmitted until a secure,
-// GDPR-compliant form endpoint is connected (see submit handler).
+// Client-side validation only (concept site). No data is transmitted;
+// the submit handler just reports the result.
 
 type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -116,7 +116,7 @@ function init(): void {
       window.setTimeout(() => {
         if (status) {
           status.textContent =
-            "Vielen Dank! Ihre Angaben sind vollständig. Hinweis: Für den echten Versand muss noch ein sicherer Formular-Endpunkt angebunden werden – bitte rufen Sie uns bis dahin an.";
+            "Ihre Angaben sind vollständig. Hinweis: Dies ist ein Konzeptprojekt – die Anfrage wird nicht übermittelt.";
         }
         if (submit) {
           submit.disabled = false;

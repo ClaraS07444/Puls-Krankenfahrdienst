@@ -1,8 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
-import Icon from "../components/Icon.astro";
-import { company, fleet, locations } from "../data/site";
+import { fleet, locations } from "../data/site";
 ---
 
 <Base
@@ -17,13 +16,12 @@ import { company, fleet, locations } from "../data/site";
     <div class="button-row fly-in" style="--d: 3">
       <a class="btn" href="#private-anfrage">Private Fahrt</a>
       <a class="btn btn-outline" href="#transportschein">Mit Transportschein</a>
-      <a class="btn btn-outline" href={company.hotline.href}><Icon name="phone" class="icon icon-sm" />{company.hotline.label}</a>
     </div>
   </PageHero>
 
   <section class="section section-light">
     <div class="container">
-      <p class="form-hint">Pflichtfelder sind mit * markiert. Bitte senden Sie nur die Gesundheitsangaben, die für die Fahrt nötig sind.</p>
+      <p class="form-hint"><strong>Konzeptprojekt:</strong> Diese Formulare dienen nur der Demonstration, Anfragen werden nicht übermittelt. Pflichtfelder sind mit * markiert. Bitte senden Sie nur die Gesundheitsangaben, die für die Fahrt nötig sind.</p>
 
       <form class="request-form" id="private-anfrage" data-validate novalidate aria-labelledby="private-title">
         <h2 class="form-title" id="private-title">Private Fahrt</h2>

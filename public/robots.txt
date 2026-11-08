@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.puls-krankenfahrdienst.de/sitemap-index.xml
+Sitemap: https://puls-krankenfahrdienst.pages.dev/sitemap-index.xml
